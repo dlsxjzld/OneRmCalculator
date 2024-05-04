@@ -37,6 +37,13 @@ function App() {
     setResult([...temp]);
   };
 
+  const handleReset = () => {
+    setOneRm(0);
+    setWeight('');
+    setRepeat(0);
+    setResult([]);
+  };
+
   return (
     <>
       <input
@@ -59,7 +66,11 @@ function App() {
         onClick={handleCalculate}>
         계산
       </button>
-
+      <button
+        type='button'
+        onClick={handleReset}>
+        초기화
+      </button>
       <div>{`weight: ${weight} repeat: ${repeat}`}</div>
       <div>{`1rm : ${oneRm}`}</div>
       {result.map((weight, rep) => (
