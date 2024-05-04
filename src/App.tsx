@@ -2,8 +2,8 @@ import { ChangeEvent, useState } from 'react';
 
 function App() {
   const [oneRm, setOneRm] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [repeat, setRepeat] = useState(0);
+  const [weight, setWeight] = useState('');
+  const [repeat, setRepeat] = useState(1);
   const [result, setResult] = useState<string[]>([]);
 
   // 선택값 : 횟수
@@ -18,7 +18,7 @@ function App() {
   };
 
   const getWeight = (e: ChangeEvent<HTMLInputElement>) => {
-    setWeight(Number(e.target.value));
+    setWeight(e.target.value);
   };
 
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -26,7 +26,7 @@ function App() {
   };
 
   const handleCalculate = () => {
-    const oneRm = calculate1RM(weight, repeat);
+    const oneRm = calculate1RM(Number(weight), repeat);
     setOneRm(oneRm);
     const temp = [];
 
@@ -44,6 +44,7 @@ function App() {
         type='number'
         name='무게'
         onChange={getWeight}
+        value={weight}
       />
       <select
         name='횟수'
@@ -54,9 +55,11 @@ function App() {
       </select>
       <button
         type='button'
+        className='mr-2'
         onClick={handleCalculate}>
-        click!
+        계산
       </button>
+
       <div>{`weight: ${weight} repeat: ${repeat}`}</div>
       <div>{`1rm : ${oneRm}`}</div>
       {result.map((weight, rep) => (
