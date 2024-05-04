@@ -4,6 +4,7 @@ function App() {
   const [oneRm, setOneRm] = useState(0);
   const [weight, setWeight] = useState(0);
   const [repeat, setRepeat] = useState(0);
+  const [result, setResult] = useState<string[]>([]);
 
   // 선택값 : 횟수
   // 입력값 : 무게
@@ -27,6 +28,13 @@ function App() {
   const handleCalculate = () => {
     const oneRm = calculate1RM(weight, repeat);
     setOneRm(oneRm);
+    const temp = [];
+
+    for (let i = 1; i <= 12; i++) {
+      const rm = (oneRm / (36 / (37 - i))).toFixed(2);
+      temp.push(rm);
+    }
+    setResult([...temp]);
   };
 
   return (
@@ -51,6 +59,9 @@ function App() {
       </button>
       <div>{`weight: ${weight} repeat: ${repeat}`}</div>
       <div>{`1rm : ${oneRm}`}</div>
+      {result.map((weight, rep) => (
+        <div>{`${rep + 1}RM : ${weight}kg`}</div>
+      ))}
     </>
   );
 }
