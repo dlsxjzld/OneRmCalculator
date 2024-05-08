@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
 function App() {
-  const [oneRm, setOneRm] = useState(0);
   const [weight, setWeight] = useState('');
   const [repeat, setRepeat] = useState(1);
   const [result, setResult] = useState<string[]>([]);
@@ -27,7 +26,7 @@ function App() {
 
   const handleCalculate = () => {
     const oneRm = calculate1RM(Number(weight), repeat);
-    setOneRm(oneRm);
+
     const temp = [];
 
     for (let i = 1; i <= 12; i++) {
@@ -38,7 +37,6 @@ function App() {
   };
 
   const handleReset = () => {
-    setOneRm(0);
     setWeight('');
     setRepeat(0);
     setResult([]);
@@ -72,7 +70,6 @@ function App() {
         초기화
       </button>
       <div>{`weight: ${weight} repeat: ${repeat}`}</div>
-      <div>{`1rm : ${oneRm}`}</div>
       {result.map((weight, rep) => (
         <div>{`${rep + 1}RM : ${weight}kg`}</div>
       ))}
