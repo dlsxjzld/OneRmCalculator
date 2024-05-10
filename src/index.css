@@ -11,12 +11,4 @@
   body {
     font-size: 1.6rem;
   }
-
-  button {
-    cursor: pointer;
-    &:hover {
-      background: rgb(69, 142, 245);
-      transition: ease-in-out 200ms;
-    }
-  }
 }

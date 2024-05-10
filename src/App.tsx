@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Fragment, useState } from 'react';
 
 function App() {
   const [weight, setWeight] = useState('');
@@ -43,44 +43,52 @@ function App() {
   };
 
   return (
-    <div className='min-w-[37.5rem] min-h-full flex flex-col justify-center items-center p-[2rem_1.5rem]'>
-      <h1 className='font-bold text-[2rem] pb-[2rem]'>1RM 계산기</h1>
-      <input
-        placeholder='무게'
-        type='number'
-        name='무게'
-        onChange={getWeight}
-        value={weight}
-        className='w-full border-[0.2rem]'
-      />
-      <select
-        name='횟수'
-        className='w-full border-[0.2rem]'
-        onChange={handleSelect}>
-        {REPEAT_SELECT_LIST.map((value) => (
-          <option key={value}>{value}</option>
-        ))}
-      </select>
-      <section className='w-full flex flex-row justify-around'>
-        <button
-          type='button'
-          className='w-1/2 border-[0.2rem]'
-          onClick={handleCalculate}>
-          계산
-        </button>
-        <button
-          type='button'
-          className='w-1/2 border-[0.2rem]'
-          onClick={handleReset}>
-          초기화
-        </button>
-      </section>
-      <section className='w-full flex flex-col items-center pt-[2rem] text-[1.8rem] text-center gap-[0.5rem]'>
-        <span className='w-full font-semibold text-center'>{`무게: ${weight || 0} 횟수: ${repeat}`}</span>
-        {result.map((weight, rep) => (
-          <span className='w-full text-[1.6rem]'>{`${rep + 1}RM : ${weight}kg`}</span>
-        ))}
-      </section>
+    <div className='w-[37.5rem] min-h-[66.7rem] mx-auto p-[2rem_1.6rem]'>
+      <header className='flex flex-row flex-wrap justify-center mb-[1rem]'>
+        <h1 className='font-bold text-[2rem]'>1RM 계산기</h1>
+      </header>
+      <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
+        <input
+          placeholder='무게'
+          type='number'
+          name='무게'
+          onChange={getWeight}
+          value={weight}
+          className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
+        />
+        <select
+          name='횟수'
+          className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
+          onChange={handleSelect}>
+          {REPEAT_SELECT_LIST.map((value) => (
+            <option key={value}>{value}</option>
+          ))}
+        </select>
+        <section className='w-full flex flex-row gap-[1.6rem]'>
+          <button
+            type='button'
+            className='w-1/2 p-[0.8rem_0.7rem] border-[0.2rem] hover:bg-grey-100 transition-all ease-in-out duration-300 cursor-pointer'
+            onClick={handleCalculate}>
+            계산
+          </button>
+          <button
+            type='button'
+            className='w-1/2 p-[0.8rem_0.7rem] border-[0.2rem] hover:bg-grey-100 transition-all ease-in-out duration-300 cursor-pointer'
+            onClick={handleReset}>
+            초기화
+          </button>
+        </section>
+        <section className='w-full flex flex-col items-center pt-[2rem] text-[1.8rem] text-center gap-[0.5rem]'>
+          <span className='w-full font-semibold text-center'>{`무게: ${weight || 0} 횟수: ${repeat}`}</span>
+          <Fragment>
+            {result.map((weight, rep) => (
+              <span
+                key={`${weight + rep}rep`}
+                className='w-full text-[1.6rem]'>{`${rep + 1}RM : ${weight}kg`}</span>
+            ))}
+          </Fragment>
+        </section>
+      </main>
     </div>
   );
 }
