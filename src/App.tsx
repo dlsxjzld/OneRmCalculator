@@ -2,7 +2,7 @@ import { ChangeEvent, Fragment, useState } from 'react';
 
 function App() {
   const [weight, setWeight] = useState('');
-  const [repeat, setRepeat] = useState(1);
+  const [repeat, setRepeat] = useState(0);
   const [result, setResult] = useState<string[]>([]);
 
   // 선택값 : 횟수
@@ -38,7 +38,7 @@ function App() {
 
   const handleReset = () => {
     setWeight('');
-    setRepeat(1);
+    setRepeat(0);
     setResult([]);
   };
 
@@ -59,14 +59,28 @@ function App() {
           value={weight}
           className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
         />
-        <select
-          name='횟수'
-          className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
-          onChange={handleSelect}>
-          {REPEAT_SELECT_LIST.map((value) => (
-            <option key={value}>{value}</option>
-          ))}
-        </select>
+        <section className='w-full flex items-center justify-between'>
+          <label htmlFor='reps'>반복 횟수 :</label>
+          <select
+            id='reps'
+            name='횟수'
+            className=' w-[75%] p-[0.8rem_0.6rem] border-[0.2rem]'
+            onChange={handleSelect}
+            value={repeat || 'SELECT'}>
+            <option
+              value='SELECT'
+              disabled>
+              반복 횟수를 선택해주세요.
+            </option>
+            {REPEAT_SELECT_LIST.map((value) => (
+              <option
+                key={`${value}reps`}
+                value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </section>
         <section className='w-full flex flex-row gap-[1.6rem]'>
           <button
             type='button'
