@@ -1,5 +1,7 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 
+const REPS = 12;
+
 const calculate1RM = (weight: number, repeat: number): number => {
   return weight * (36 / (37 - repeat));
 };
@@ -8,7 +10,7 @@ const calculateWeight1RMto12RM = (weight: string, repeat: number): string[] => {
   const _1RM = calculate1RM(Number(weight), repeat);
 
   const _1RMto12RM = [];
-  for (let i = 1; i <= 12; i++) {
+  for (let i = 1; i <= REPS; i++) {
     const rm = (_1RM / (36 / (37 - i))).toFixed(2);
     _1RMto12RM.push(rm);
   }
@@ -21,7 +23,7 @@ function App() {
   const [result, setResult] = useState<string[]>([]);
 
   const REPEAT_SELECT_LIST = Array.from(
-    { length: 12 },
+    { length: REPS },
     (_, index) => index + 1
   );
 
