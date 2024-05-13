@@ -1,39 +1,41 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 
+const calculate1RM = (weight: number, repeat: number): number => {
+  return weight * (36 / (37 - repeat));
+};
+
+const calculateWeight1RMto12RM = (weight: string, repeat: number): string[] => {
+  const _1RM = calculate1RM(Number(weight), repeat);
+
+  const _1RMto12RM = [];
+  for (let i = 1; i <= 12; i++) {
+    const rm = (_1RM / (36 / (37 - i))).toFixed(2);
+    _1RMto12RM.push(rm);
+  }
+  return _1RMto12RM;
+};
+
 function App() {
   const [weight, setWeight] = useState('');
   const [repeat, setRepeat] = useState(0);
   const [result, setResult] = useState<string[]>([]);
 
-  // 선택값 : 횟수
-  // 입력값 : 무게
   const REPEAT_SELECT_LIST = Array.from(
     { length: 12 },
     (_, index) => index + 1
   );
 
-  const calculate1RM = (weight: number, repeat: number) => {
-    return weight * (36 / (37 - repeat));
-  };
-
-  const getWeight = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleWeight = (e: ChangeEvent<HTMLInputElement>) => {
     setWeight(e.target.value);
   };
 
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleRepeat = (e: ChangeEvent<HTMLSelectElement>) => {
     setRepeat(Number(e.target.value));
   };
 
   const handleCalculate = () => {
-    const oneRm = calculate1RM(Number(weight), repeat);
-
-    const temp = [];
-
-    for (let i = 1; i <= 12; i++) {
-      const rm = (oneRm / (36 / (37 - i))).toFixed(2);
-      temp.push(rm);
-    }
-    setResult([...temp]);
+    const weightForRmList = calculateWeight1RMto12RM(weight, repeat);
+    setResult([...weightForRmList]);
   };
 
   const handleReset = () => {
@@ -55,7 +57,7 @@ function App() {
           placeholder='무게'
           type='number'
           name='무게'
-          onChange={getWeight}
+          onChange={handleWeight}
           value={weight}
           className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
         />
@@ -65,7 +67,7 @@ function App() {
             id='reps'
             name='횟수'
             className=' w-[75%] p-[0.8rem_0.6rem] border-[0.2rem]'
-            onChange={handleSelect}
+            onChange={handleRepeat}
             value={repeat || 'SELECT'}>
             <option
               value='SELECT'
