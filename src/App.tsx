@@ -6,18 +6,18 @@ const calculate1RM = (weight: number, repeat: number): number => {
   return weight * (36 / (37 - repeat));
 };
 
-const calculateWeight1RMto12RM = (weight: string, repeat: number): string[] => {
+const calculateWeight1RMtoREPS = (weight: string, repeat: number): string[] => {
   const _1RM = calculate1RM(Number(weight), repeat);
 
-  const _1RMto12RM = [];
+  const _1RMtoREPS = [];
   for (let i = 1; i <= REPS; i++) {
     const rm = (_1RM / (36 / (37 - i))).toFixed(2);
-    _1RMto12RM.push(rm);
+    _1RMtoREPS.push(rm);
   }
-  return _1RMto12RM;
+  return _1RMtoREPS;
 };
 
-function App() {
+const App = () => {
   const [weight, setWeight] = useState('');
   const [repeat, setRepeat] = useState(0);
   const [result, setResult] = useState<string[]>([]);
@@ -36,7 +36,7 @@ function App() {
   };
 
   const handleCalculate = () => {
-    const weightForRmList = calculateWeight1RMto12RM(weight, repeat);
+    const weightForRmList = calculateWeight1RMtoREPS(weight, repeat);
     setResult([...weightForRmList]);
   };
 
@@ -50,9 +50,9 @@ function App() {
     <div className='w-[37.5rem] min-h-[66.7rem] mx-auto p-[2rem_1.6rem]'>
       <header className='flex flex-row flex-wrap justify-center mb-[1rem]'>
         <h1 className='font-bold text-[2rem]'>1RM 계산기</h1>
-        <span className='font-semibold'>
+        <p className='font-semibold'>
           정확도를 위해 횟수를 10개 이하로 해주세요!
-        </span>
+        </p>
       </header>
       <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
         <input
@@ -63,7 +63,7 @@ function App() {
           value={weight}
           className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
         />
-        <section className='w-full flex items-center justify-between'>
+        <article className='w-full flex items-center justify-between'>
           <label htmlFor='reps'>반복 횟수 :</label>
           <select
             id='reps'
@@ -84,8 +84,8 @@ function App() {
               </option>
             ))}
           </select>
-        </section>
-        <section className='w-full flex flex-row gap-[1.6rem]'>
+        </article>
+        <article className='w-full flex flex-row gap-[1.6rem]'>
           <button
             type='button'
             className='w-1/2 p-[0.8rem_0.7rem] border-[0.2rem] hover:bg-grey-100 transition-all ease-in-out duration-300 cursor-pointer'
@@ -98,9 +98,9 @@ function App() {
             onClick={handleReset}>
             초기화
           </button>
-        </section>
-        <section className='w-full flex flex-col items-center pt-[2rem] text-[1.8rem] text-center gap-[0.5rem]'>
-          <span className='w-full font-semibold text-center'>{`무게: ${weight || 0} 횟수: ${repeat}`}</span>
+        </article>
+        <article className='w-full flex flex-col items-center pt-[2rem] text-[1.8rem] text-center gap-[0.5rem]'>
+          <p className='w-full font-semibold text-center'>{`무게: ${weight || 0} 횟수: ${repeat}`}</p>
           <Fragment>
             {result.map((weight, rep) => (
               <span
@@ -108,10 +108,10 @@ function App() {
                 className='w-full text-[1.6rem]'>{`${rep + 1}RM : ${weight}kg`}</span>
             ))}
           </Fragment>
-        </section>
+        </article>
       </main>
     </div>
   );
-}
+};
 
 export default App;
