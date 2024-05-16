@@ -48,11 +48,11 @@ const App = () => {
 
   return (
     <div className='w-[37.5rem] min-h-[66.7rem] mx-auto p-[2rem_1.6rem]'>
-      <header className='flex flex-row flex-wrap justify-center mb-[1rem]'>
+      <header className='flex flex-row flex-wrap justify-center mb-[1rem] gap-[1rem]'>
         <h1 className='font-bold text-[2rem]'>1RM 계산기</h1>
-        <p className='font-semibold'>
+        <h4 className='font-medium'>
           정확도를 위해 횟수를 10개 이하로 해주세요!
-        </p>
+        </h4>
       </header>
       <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
         <input
