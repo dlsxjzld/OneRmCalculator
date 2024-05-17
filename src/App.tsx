@@ -29,9 +29,15 @@ const App = () => {
 
   const handleWeight = (e: ChangeEvent<HTMLInputElement>) => {
     const _weightCheckForRange = Number(e.target.value);
+    const _weightCheckForLength = e.target.value.split('.')[1]?.length;
 
     if (_weightCheckForRange < 0 || _weightCheckForRange > 1000) {
       alert('입력 가능한 범위는 0~1000 입니다!');
+      return;
+    }
+
+    if (_weightCheckForLength && _weightCheckForLength > 2) {
+      alert('정확도를 위해 소수점 2자리까지만 입력해 주세요!');
       return;
     }
 
