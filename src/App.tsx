@@ -61,6 +61,19 @@ const App = () => {
   };
 
   const handleCalculate = () => {
+    if (weight === '' && repeat === 0) {
+      alert('무게와 횟수를 입력해주세요!');
+      return;
+    }
+    if (weight === '') {
+      alert('무게를 입력해주세요');
+      return;
+    }
+    if (repeat === 0) {
+      alert('횟수를 입력해주세요!');
+      return;
+    }
+
     const weightForRmList = calculateWeight1RMtoREPS(weight, repeat);
     setResult([...weightForRmList]);
   };
@@ -95,9 +108,9 @@ const App = () => {
             name='횟수'
             className=' w-[75%] p-[0.8rem_0.6rem] border-[0.2rem]'
             onChange={handleRepeat}
-            value={repeat || 'SELECT'}>
+            value={repeat}>
             <option
-              value='SELECT'
+              value='0'
               disabled>
               반복 횟수를 선택해주세요.
             </option>
