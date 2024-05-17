@@ -28,6 +28,13 @@ const App = () => {
   );
 
   const handleWeight = (e: ChangeEvent<HTMLInputElement>) => {
+    const _weightCheckForRange = Number(e.target.value);
+
+    if (_weightCheckForRange < 0 || _weightCheckForRange > 1000) {
+      alert('입력 가능한 범위는 0~1000 입니다!');
+      return;
+    }
+
     setWeight(e.target.value);
   };
 
