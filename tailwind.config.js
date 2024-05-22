@@ -4,10 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        'customBlue-550': '#0067D6',
         'customWhite-100': '#eee',
+        light: {
+          'customBlue-550': '#0067D6',
+        },
       },
     },
   },
   plugins: [],
+  darkMode: 'class',
 };
