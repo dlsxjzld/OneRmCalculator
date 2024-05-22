@@ -7,6 +7,10 @@ import {
 } from './util/validation';
 
 const REPS = 12;
+const REPEAT_SELECT_LIST = Array.from(
+  { length: REPS },
+  (_, index) => index + 1
+);
 
 const calculate1RM = (weight: number, repeat: number): number => {
   return weight * (36 / (37 - repeat));
@@ -27,11 +31,6 @@ const App = () => {
   const [weight, setWeight] = useState('');
   const [repeat, setRepeat] = useState(0);
   const [result, setResult] = useState<string[]>([]);
-
-  const REPEAT_SELECT_LIST = Array.from(
-    { length: REPS },
-    (_, index) => index + 1
-  );
 
   const handleWeight = (e: ChangeEvent<HTMLInputElement>) => {
     if (
