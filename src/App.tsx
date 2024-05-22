@@ -46,6 +46,14 @@ const App = () => {
     return true;
   };
 
+  const validateWeightExist = (weight: string) => {
+    return weight !== '';
+  };
+
+  const validateRepeatExist = (repeat: number) => {
+    return repeat !== 0;
+  };
+
   const handleWeight = (e: ChangeEvent<HTMLInputElement>) => {
     if (
       !validateWeightRange(e.target.value) ||
@@ -61,15 +69,18 @@ const App = () => {
   };
 
   const handleCalculate = () => {
-    if (weight === '' && repeat === 0) {
+    const isWeightExist = validateWeightExist(weight);
+    const isRepeatExist = validateRepeatExist(repeat);
+
+    if (!isWeightExist && !isRepeatExist) {
       alert('무게와 횟수를 입력해주세요!');
       return;
     }
-    if (weight === '') {
+    if (!isWeightExist) {
       alert('무게를 입력해주세요');
       return;
     }
-    if (repeat === 0) {
+    if (!isRepeatExist) {
       alert('횟수를 입력해주세요!');
       return;
     }
@@ -88,9 +99,9 @@ const App = () => {
     <div className='w-[37.5rem] min-h-[66.7rem] mx-auto p-[2rem_1.6rem]'>
       <header className='flex flex-row flex-wrap justify-center mb-[1rem] gap-[1rem]'>
         <h1 className='font-bold text-[2rem]'>1RM 계산기</h1>
-        <h4 className='font-medium'>
+        <h2 className='font-medium'>
           정확도를 위해 횟수를 10개 이하로 해주세요!
-        </h4>
+        </h2>
       </header>
       <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
         <input
