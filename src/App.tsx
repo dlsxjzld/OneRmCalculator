@@ -74,69 +74,74 @@ const App = () => {
   };
 
   return (
-    <div className='w-[37.5rem] min-h-[66.7rem] mx-auto p-[2rem_1.6rem]'>
-      <header className='flex flex-row flex-wrap justify-center mb-[1rem] gap-[1rem]'>
-        <h1 className='font-bold text-[2rem]'>1RM 계산기</h1>
-        <h2 className='font-medium'>
-          정확도를 위해 횟수를 10개 이하로 해주세요!
-        </h2>
-      </header>
-      <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
-        <input
-          placeholder='무게'
-          type='number'
-          name='무게'
-          onChange={handleWeight}
-          value={weight}
-          className='w-full p-[0.8rem_0.6rem] border-[0.2rem]'
-        />
-        <article className='w-full flex items-center justify-between'>
-          <label htmlFor='reps'>반복 횟수 :</label>
-          <select
-            id='reps'
-            name='횟수'
-            className=' w-[75%] p-[0.8rem_0.6rem] border-[0.2rem]'
-            onChange={handleRepeat}
-            value={repeat}>
-            <option
-              value='0'
-              disabled>
-              반복 횟수를 선택해주세요.
-            </option>
-            {REPEAT_SELECT_LIST.map((value) => (
+    <div className='w-screen h-screen bg-blue-500 py-[1.6rem] overflow-auto scroll-smooth'>
+      <div className='max-w-[33.6rem] min-h-[32rem] mx-auto bg-white rounded-[0.5rem] shadow-md p-[2rem_1.6rem]'>
+        <header className='text-center mb-[1rem]'>
+          <h1 className='font-bold text-[2rem]'>1RM 계산기</h1>
+          <h2 className='font-medium'>
+            정확도를 위해 횟수를 10개 이하로 해주세요!
+          </h2>
+        </header>
+        <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
+          <input
+            placeholder='무게'
+            type='number'
+            name='무게'
+            onChange={handleWeight}
+            value={weight}
+            className='w-full p-[0.8rem_0.6rem] placeholder:text-black bg-customWhite-100 border rounded-[0.5rem] focus:outline-none focus:ring-2 focus:ring-blue-500'
+          />
+          <article className='w-full flex items-center justify-between'>
+            <label htmlFor='reps'>반복 횟수 :</label>
+            <select
+              id='reps'
+              name='횟수'
+              className='w-[75%] p-[0.8rem_0.6rem] bg-customWhite-100 border rounded-[0.5rem] focus:outline-none focus:ring-2 focus:ring-blue-500'
+              onChange={handleRepeat}
+              value={repeat}>
               <option
-                key={`${value}reps`}
-                value={value}>
-                {value}
+                value='0'
+                disabled>
+                반복 횟수를 선택해주세요.
               </option>
-            ))}
-          </select>
-        </article>
-        <article className='w-full flex flex-row gap-[1.6rem]'>
-          <button
-            type='button'
-            className='w-1/2 p-[0.8rem_0.7rem] border-[0.2rem] hover:bg-grey-100 transition-all ease-in-out duration-300 cursor-pointer'
-            onClick={handleCalculate}>
-            계산
-          </button>
-          <button
-            type='button'
-            className='w-1/2 p-[0.8rem_0.7rem] border-[0.2rem] hover:bg-grey-100 transition-all ease-in-out duration-300 cursor-pointer'
-            onClick={handleReset}>
-            초기화
-          </button>
-        </article>
-        <article className='w-full flex flex-col items-center pt-[2rem] text-[1.8rem] text-center gap-[0.5rem]'>
-          <p className='w-full font-semibold text-center'>{`무게: ${weight || 0} 횟수: ${repeat}`}</p>
-          <Fragment>
-            {result.map((weight, rep) => (
-              <span
-                key={`${weight + rep}rep`}
-                className='w-full text-[1.6rem]'>{`${rep + 1}RM : ${weight}kg`}</span>
-            ))}
-          </Fragment>
-        </article>
-      </main>
+              {REPEAT_SELECT_LIST.map((value) => (
+                <option
+                  key={`${value}reps`}
+                  value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </article>
+          <article className='w-full flex flex-row gap-[1.6rem]'>
+            <button
+              type='button'
+              className='w-1/2 p-[0.8rem_0.7rem] border bg-blue-500 text-white rounded-[0.5rem] hover:bg-customBlue-550 transition duration-300 '
+              onClick={handleCalculate}>
+              계산
+            </button>
+            <button
+              type='button'
+              className='w-1/2 p-[0.8rem_0.7rem] border bg-customWhite-100  rounded-[0.5rem] hover:bg-customBlue-550 hover:text-white transition duration-300 '
+              onClick={handleReset}>
+              초기화
+            </button>
+          </article>
+          <article className='w-full flex flex-col items-center pt-[1rem] text-[1.8rem] text-center gap-[0.5rem]'>
+            <div className='w-full flex justify-evenly font-semibold'>
+              <p>{`무게: ${weight || 0}kg`}</p>
+              <p>{`횟수: ${repeat}번`}</p>
+            </div>
+            <Fragment>
+              {result.map((weight, rep) => (
+                <span
+                  key={`${weight + rep}rep`}
+                  className='w-full text-[1.6rem]'>{`${rep + 1}RM : ${weight}kg`}</span>
+              ))}
+            </Fragment>
+          </article>
+        </main>
+      </div>
     </div>
   );
 };
