@@ -106,7 +106,7 @@ const App = () => {
             name='무게'
             onChange={handleWeight}
             value={weight}
-            className='w-full p-[0.8rem_0.6rem] placeholder:text-black dark:text-white bg-customWhite-100 border rounded-[0.5rem] focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='w-full p-[0.8rem_0.6rem] placeholder:text-black bg-customWhite-100 border rounded-[0.5rem] focus:outline-none focus:ring-2 focus:ring-blue-500'
           />
           <article className='w-full flex items-center justify-between '>
             <label
