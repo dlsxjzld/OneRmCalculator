@@ -1,5 +1,8 @@
-import { ChangeEvent, Fragment, useState } from 'react';
-import DarkModeIcon from './DarkModeIcon';
+import { ChangeEvent, useState } from 'react';
+import CalculatedData from './components/CalculatedData';
+import Header from './components/Header';
+import MainFormButton from './components/MainFormButton';
+import MainFormInput from './components/MainFormInput';
 import {
   validateRepeatExist,
   validateWeightDecimalPointLength,
@@ -88,79 +91,24 @@ const App = () => {
     <div
       className={`w-screen h-screen bg-blue-500 py-[1.6rem] overflow-auto scroll-smooth dark:bg-black/70 transition-all duration-300`}>
       <div className='max-w-[33.6rem] min-h-[32rem] mx-auto bg-white rounded-[0.5rem] shadow-md p-[2rem_1.6rem] dark:bg-black'>
-        <header className='text-center mb-[1rem] relative'>
-          <button
-            onClick={toggleDarkMode}
-            className='absolute top-0 right-0 p-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-500 transition-all duration-300 text-gray-800'>
-            <DarkModeIcon />
-          </button>
-          <h1 className='font-bold text-[2rem] dark:text-white'>1RM 계산기</h1>
-          <h2 className='font-medium dark:text-white'>
-            정확도를 위해 횟수를 10개 이하로 해주세요!
-          </h2>
-        </header>
+        <Header toggleDarkMode={toggleDarkMode} />
         <main className='flex flex-col items-center justify-center gap-[0.8rem]'>
-          <input
-            placeholder='무게'
-            type='number'
-            name='무게'
-            onChange={handleWeight}
-            value={weight}
-            className='w-full p-[0.8rem_0.6rem] placeholder:text-black bg-customWhite-100 border rounded-[0.5rem] focus:outline-none focus:ring-2 focus:ring-blue-500'
+          <MainFormInput
+            handleWeight={handleWeight}
+            weight={weight}
+            handleRepeat={handleRepeat}
+            repeat={repeat}
+            REPEAT_SELECT_LIST={REPEAT_SELECT_LIST}
           />
-          <article className='w-full flex items-center justify-between '>
-            <label
-              htmlFor='reps'
-              className='dark:text-white'>
-              반복 횟수 :
-            </label>
-            <select
-              id='reps'
-              name='횟수'
-              className='w-[75%] p-[0.8rem_0.6rem] bg-customWhite-100 border rounded-[0.5rem] focus:outline-none focus:ring-2 focus:ring-blue-500'
-              onChange={handleRepeat}
-              value={repeat}>
-              <option
-                value='0'
-                disabled>
-                반복 횟수를 선택해주세요.
-              </option>
-              {REPEAT_SELECT_LIST.map((value) => (
-                <option
-                  key={`${value}reps`}
-                  value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          </article>
-          <article className='w-full flex flex-row gap-[1.6rem]'>
-            <button
-              type='button'
-              className='w-1/2 p-[0.8rem_0.7rem] border bg-blue-500 dark:bg-gray-400 dark:text-black dark:border-black dark:hover:bg-gray-500 text-white rounded-[0.5rem] hover:bg-light-customBlue-550 transition-all duration-300'
-              onClick={handleCalculate}>
-              계산
-            </button>
-            <button
-              type='button'
-              className='w-1/2 p-[0.8rem_0.7rem] border bg-customWhite-100  rounded-[0.5rem] dark:hover:bg-gray-500 dark:border-black hover:bg-light-customBlue-550 hover:text-white transition-all duration-300 '
-              onClick={handleReset}>
-              초기화
-            </button>
-          </article>
-          <article className='w-full flex flex-col items-center pt-[1rem] text-[1.8rem] text-center gap-[0.5rem] dark:text-white'>
-            <div className='w-full flex justify-evenly font-semibold '>
-              <p>{`무게: ${weight || 0}kg`}</p>
-              <p>{`횟수: ${repeat}번`}</p>
-            </div>
-            <Fragment>
-              {result.map((weight, rep) => (
-                <span
-                  key={`${weight + rep}rep`}
-                  className='w-full text-[1.6rem]'>{`${rep + 1}RM : ${weight}kg`}</span>
-              ))}
-            </Fragment>
-          </article>
+          <MainFormButton
+            handleCalculate={handleCalculate}
+            handleReset={handleReset}
+          />
+          <CalculatedData
+            result={result}
+            weight={weight}
+            repeat={repeat}
+          />
         </main>
       </div>
     </div>
