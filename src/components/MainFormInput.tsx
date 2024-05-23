@@ -40,7 +40,7 @@ const MainFormInput = ({
           <option
             value='0'
             disabled>
-            반복 횟수를 선택해 주세요.
+            정확도를 위해 10개 이하 추천
           </option>
           {REPEAT_SELECT_LIST.map((value) => (
             <option
